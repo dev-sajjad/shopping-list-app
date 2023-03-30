@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping List App</title>
+    <!-- font awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- google fonts cdn -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@100;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div id="shopping-list">
+      <div class="header-area">
+        <h1>{{header}}</h1>
+        <button class="btn-cancel" v-if="editing" @click="doEdit(false)">
+          Cancel
+        </button>
+        <button class="btn-addItem" v-else @click="doEdit(true)">
+          Add Item
+        </button>
+      </div>
+      <hr />
+
+      <div v-if="editing" class="shopping-list-item">
+        <input
+          @keyup.enter.prevent="addNewItem"
+          v-model="newItem"
+          type="text"
+          placeholder="Add an item"
+        />
+        <label>
+          <input type="checkbox" v-model="newItemHighPriority" /> High Priority
+        </label>
+        <button class="btn-save" :disabled="newItem?.length === 0" @click="addNewItem">
+          Save Item
+        </button>
+      </div>
+
+      <p v-if="items?.length === 0">Nice job! You've bought all your items.</p>
+
+      <ul>
+        <li
+          v-for="(item, index) in reverseItems"
+          :key="item.id"
+          :class="{done: item.purchased}"
+        >
+        <input type="checkbox" @click="togglePurchased(item)" v-model="item.purchased">
+          <span
+            :class="{strikeout: item?.purchased, priority: item?.highPriority}">
+            {{item.title}}</span>
+            <button :disabled="!item.purchased" @click="deleteItem(item)" class="btn-delete" > <i class="fa-regular fa-circle-xmark"></i></button>
+        </li>
+       
+      </ul>
+    </div>
+
+    <!-- {{newItemHighPriority}}
+
+      <label> <input type="checkbox" v-model="iceCreamFlavour" value="vanilla">Vanilla</label>
+      <label> <input type="checkbox" v-model="iceCreamFlavour" value="Chocolate">Chocolate</label>
+      <label> <input type="checkbox" v-model="iceCreamFlavour" value="normal">normal</label>
+      <label> <input type="checkbox" v-model="iceCreamFlavour" value="love shape">Love shape</label> -->
+    <!-- 
+      <label
+        ><input type="radio" value="low" v-model="newItemPriority" />Low</label
+      >
+      <label
+        ><input
+          type="radio"
+          value="high"
+          v-model="newItemPriority"
+        />High</label
+      > -->
+    <!-- <label>
+        Priority 
+        <select v-model="newItemPriority">
+            <option value="Low">Low</option>
+            <option value="High">High</option>
+        </select>
+      </label> -->
+
+    <!-- class bindings -->
+
+    <!-- :class="['strikeout', 'priority']" 
+          :class="[
+            {item?.purchased ? 'strikeout: ''},                                                   
+            {item?.priority ? 'priority' : ''},
+          ]" -->
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            header: "Shopping List App",
+            editing: false,
+            newItem: "",
+            newItemHighPriority: false,
+            itemPurchased: false,
+            items: [
+              // { id: 1, title: "3 Mangoes", purchased: true, highPriority: false },
+              // { id: 2, title: "2 Oranges", purchased: true, highPriority: false },
+              // { id: 3, title: "1 Phones", purchased: false, highPriority: true },
+            ],
+          };
+        },
+        computed: {
+          reverseItems() {
+            return [...this.items].reverse();
+          },
+        },
+        methods: {
+          addNewItem() {
+            if(this.newItem.trim() !== '') {
+              this.items.push({
+                id: this.items.length + 1,
+                title: this.newItem,
+                highPriority: this.newItemHighPriority,
+                purchased: this.itemPurchased,
+              });
+            }
+            localStorage.setItem("shoppingList", JSON.stringify(this.items));
+            this.newItem = "";
+          },
+          doEdit(editing) {
+            this.editing = editing;
+            this.newItem = "";
+            this.newItemHighPriority = false;
+          },
+          makeAlert() {
+            alert('Oops! Please add your new item!')
+          },
+          togglePurchased(item) {
+            item.purchased = !item.purchased;
+            localStorage.setItem("shoppingList", JSON.stringify(this.items));
+          },
+          deleteItem(item) {
+          this.items.splice(this.items.indexOf(item), 1);
+           localStorage.setItem("shoppingList", JSON.stringify(this.items)); 
+          },
+        },
+        created() {
+          this.items =
+            JSON.parse(localStorage.getItem("shoppingList")) || this.items;
+        },
+      }).mount("#shopping-list");
+    </script>
+  </body>
+</html>

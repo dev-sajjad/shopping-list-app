@@ -1,0 +1,156 @@
+body {
+  background-image: url("./assets/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+.header-area {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.header-area h1 {
+  display: inline-block;
+  color: brown;
+  margin: 0;
+  font-weight: 500;
+  font-size: 40px;
+  letter-spacing: 2px;
+  text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3),
+    0px -4px 10px rgba(255, 255, 255, 0.3);
+}
+.btn-cancel {
+  background-color: red;
+  color: white;
+  padding: 5px 5px;
+  border-radius: 3px;
+}
+.btn-addItem {
+  background-color: green;
+  color: white;
+  padding: 5px 5px;
+  border-radius: 3px;
+}
+.btn-save {
+  padding: 10px 8px;
+}
+.btn-delete {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+.btn-delete:hover {
+  color: red;
+}
+#shopping-list {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: beige;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  width: 60%;
+  min-height: 190px;
+  border-radius: 5px;
+}
+.shopping-list-item {
+  color: white;
+  background-color: rgb(247, 81, 81);
+  padding: 20px 25px;
+  border-radius: 5px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+input[type="text"] {
+  color: black;
+  width: 60%;
+  height: 30px;
+  padding: 5px;
+  margin-bottom: 15px;
+  font-size: 28px;
+  font-weight: 300;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid rgb(16, 16, 16);
+}
+input[type="checkbox"] {
+  transform: scale(1.5);
+}
+::placeholder {
+  color: black;
+  opacity: 0.4;
+}
+input[type="text"]:focus {
+  border: none;
+  border-bottom: 4px solid rgb(242, 247, 246);
+  outline: none;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  width: 70%;
+  margin: 0 auto;
+}
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 20px;
+  font-weight: 400;
+  color: white;
+  background-color: rgb(60, 118, 125);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
+button {
+  padding: 5px;
+  font-size: 20px;
+  background-color: rgb(57, 57, 255);
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+button[disabled] {
+  color: white !important;
+  background-color: grey;
+}
+hr {
+  height: 1px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+p {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 20px;
+}
+
+.strikeout {
+  text-decoration: line-through;
+}
+.priority {
+  color: rgb(254, 82, 82);
+  font-weight: bold;
+  font-size: 22px;
+  /* background-color: rgb(207, 71, 71);
+  padding: 6px;
+  border-radius: 5px; */
+}
+.done {
+  background-color: rgb(169, 164, 164);
+}
